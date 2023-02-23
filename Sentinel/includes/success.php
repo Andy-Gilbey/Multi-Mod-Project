@@ -7,10 +7,11 @@
 </head>
 <body>
 <div class="container"  >
-	<div class="header">
-		<h1>Registration Successful</h1>
-	</div>
-	<div class="success-container">
+
+
+
+	<div class="form">
+	<h1>Registration Successful</h1>
 		<p>Thank you for registering. Your account has been created successfully.</p>
 		<p>You can now <a href="../index.html">login</a> to your account.</p>
 	</div>
