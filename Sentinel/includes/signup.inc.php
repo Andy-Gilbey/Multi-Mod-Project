@@ -19,7 +19,7 @@ function encryptData($formData, $key)
 }
 
 //256-bit key size, requires a key length of 32 bytes
-$key = openssl_random_pseudo_bytes(32); // Define the key
+$key = openssl_random_pseudo_bytes(32); 
 
 // This checks if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $dob = $_POST["dob"];
-    $email = $_POST["email"];
     $address1 = $_POST["address1"];
     $address2 = $_POST["address2"];
     $county = $_POST["county"];
@@ -44,9 +43,29 @@ $dobString = $dob->format("Y-m-d");
 // Adding your own salt is depreciated, this process is done automatically.
 $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 
+// check if username already exists
+$query = "SELECT * FROM User WHERE username = ?";
+$stmt = mysqli_stmt_init($conn);
+if (!mysqli_stmt_prepare($stmt, $query)) {
+    // handle error
+} else {
+    // bind parameter and execute statement
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+
+    // store result
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        // username already exists, handle error
+        header("Location: error.php?error=usernameexists");
+        exit();
+    }
+}
+
 // Prepared statement to insert user data into database to prevent SQL injection
 $query =
-    "INSERT INTO User (username, firstname, lastname, dob, email, address1, address2, county, eircode, phone, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO User (username, firstname, lastname, dob, address1, address2, county, eircode, phone, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $query)) {
     // handle error
@@ -56,7 +75,6 @@ if (!mysqli_stmt_prepare($stmt, $query)) {
     // Encrypt all personal information with the key
     $encryptedFirstname = encryptData($firstname, $key);
     $encryptedLastname = encryptData($lastname, $key);
-    $encryptedEmail = encryptData($email, $key);
     $encryptedAddress1 = encryptData($address1, $key);
     $encryptedAddress2 = encryptData($address2, $key);
     $encryptedCounty = encryptData($county, $key);
@@ -68,12 +86,11 @@ if (!mysqli_stmt_prepare($stmt, $query)) {
     // All the encrypted data then is bound into the statement
     mysqli_stmt_bind_param(
         $stmt,
-        "sssssssssss",
+        "ssssssssss",
         $username,
         $encryptedFirstname,
         $encryptedLastname,
         $encryptedDob,
-        $encryptedEmail,
         $encryptedAddress1,
         $encryptedAddress2,
         $encryptedCounty,

@@ -17,22 +17,27 @@
 			<h2>Registration</h2>
       <center>
       <i>Please ensure you read the <a href="terms.html" target="_blank">terms and conditions</a> before submiting this form</i>
-</center>
+      </center>
 			<form method="post" action="includes/signup.inc.php">
-				<label for="username">Username:</label>
-				<input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+				<label for="username">Username:</label> 
+        <!-- Max length for username = 30, there is no encryption so no ammends need to be taken -->
+				<input type="text" id="username" name="username" placeholder="Enter your username"  maxlength="30" required>
+
 				<label for="firstname">First Name:</label>
-				<input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+				<input type="text" id="firstname" name="firstname" placeholder="Enter your first name" maxlength="50" required>
+
 				<label for="lastname">Last Name:</label>
-				<input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
-                <label for="dob">Date of Birth:</label>
+				<input type="text" id="lastname" name="lastname" placeholder="Enter your last name" maxlength="50" required>
+
+        <label for="dob">Date of Birth:</label>
 				<input type="date" id="dob" name="dob" required>
-				<label for="email">Email:</label>
-				<input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+
 				<label for="address">Address Line 1:</label>
-				<input type="text" id="address1" name="address1" placeholder="Enter your House Number" required>
+				<input type="text" id="address1" name="address1" placeholder="Enter your House Number" maxlength="50" required>
                 <label for="address">Address Line 2:</label>
-				<input type="text" id="address2" name="address2" placeholder="Enter your Street Address" required>
+				<input type="text" id="address2" name="address2" placeholder="Enter your Street Address" maxlength="50" required>
 
                 <label for="county">County:</label>
                 <select name="county" id="county">
@@ -66,9 +71,9 @@
 
 
                 <label for="address">Eircode:</label>
-				<input type="text" id="eircode" name="eircode" placeholder="Enter Eircode" required>
+				<input type="text" id="eircode" name="eircode" placeholder="Enter Eircode" maxlength="9" required>
                 <label for="phone">Phone:</label>
-				<input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required>
+				<input type="text" id="phone" name="phone" placeholder="Enter Phone Number" maxlength="20" required>
 
                 <div class="password-rules">
   <ul>
