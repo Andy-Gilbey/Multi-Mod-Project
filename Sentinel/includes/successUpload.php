@@ -2,12 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&family=Roboto:wght@100&display=swap');
 </style> 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Registration Successful</title>
+	<title>Upload Successful</title>
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
 </head>
 <body>
@@ -16,9 +15,9 @@
 
 
 	<div class="form">
-	<h1>Registration Successful</h1>
-		<p>Thank you. Your  has been created successfully.</p>
-		<p>You can now <a href="../index.php">login</a> to your account.</p>
+	<h1>Upload Successful</h1>
+		<p>Thank you for uploading. The image has transferred successfully to our database.</p>
+		<p>You can now <a href="../home.php">return</a> to your account.</p>
 	</div>
 </div>
 <footer>
